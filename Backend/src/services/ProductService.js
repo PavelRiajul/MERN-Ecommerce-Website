@@ -238,6 +238,25 @@ const ReviewListService =async(req)=>{
      }
 }
 
+
+const CreateReviewService = async (req) => {
+    try{
+        let user_id=req.headers.user_id;
+        let reqBody=req.body;
+        let data=await ReviewModel.create({
+             productID:reqBody['productID'],
+             userID:user_id,
+             des:reqBody['des'],
+             rating:reqBody['rating'],
+         })
+        return {status:"success",data:data}
+    }
+    catch (e) {
+        return {status:"fail",data:e}.toString()
+    }
+
+}
+
 // ae service golo ke baere theke use korte chaile export korbo
 module.exports={
     BrandListService,
@@ -249,5 +268,6 @@ module.exports={
     ListByKeywordService,
     ListByRemarkService,
     DetailsService,
-    ReviewListService
+    ReviewListService,
+    CreateReviewService
 }
